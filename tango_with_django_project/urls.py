@@ -17,7 +17,7 @@ if settings.DEBUG:
     urlpatterns += patterns(
         'django.views.static',
         (r'media/(?P<path>.*)',
-        'server',
+        'serve', #server 函数 wait?
         {'document_root': settings.MEDIA_ROOT}),)#MEDIA_ROOT 设置为存放文件的目录
 
 INSTALLED_APPS = (
