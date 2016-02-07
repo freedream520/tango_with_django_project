@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+<!-- <!DOCTYPE> 声明必须是 HTML 文档的第一行，表示 HTML 版本 -->
 {% load staticfiles %}
 <html>
     
     <head>
         <title>Rango</title>
+        <link rel="stylesheet" href="{% static "css/base.css" %}"></link>
+        <script src="{% static "js/jquery.js" %}"></script>
     </head>
     
     <body>
