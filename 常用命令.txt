@@ -1,0 +1,4 @@
+激活虚拟环境：
+D:\\Programme\\Rango\\py2venv\\Scripts\\activate
+进入项目路径：
+cd D:\Programme\Rango
