@@ -1,4 +1,7 @@
 激活虚拟环境：
-D:\\Programme\\Rango\\py2venv\\Scripts\\activate
+D:\\Programme\\tango_with_django_project\\py2venv\\Scripts\\activate
 进入项目路径：
-cd D:\Programme\Rango
+cd D:\Programme\tango_with_django_project
+
+git中进入：
+cd D:\\Programme\\tango_with_django_project
