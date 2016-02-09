@@ -12,12 +12,12 @@ urlpatterns = patterns('',
     #匹配到  ^rango 就使用 rango.urls 中的匹配
 )
 
-#对所有 以 media/ 开头的请求将会传递给 'django.views.static',视图函数 static
+#对所有 以 media/ 开头的请求将会传递给 'django.views.static'——视图函数 static
 if settings.DEBUG:
     urlpatterns += patterns(
         'django.views.static',
         (r'media/(?P<path>.*)',
-        'serve', #server 函数 wait?
+        'serve', #名字？
         {'document_root': settings.MEDIA_ROOT}),)#MEDIA_ROOT 设置为存放文件的目录
 
 INSTALLED_APPS = (
