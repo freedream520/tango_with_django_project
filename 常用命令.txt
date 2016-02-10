@@ -5,3 +5,5 @@ cd D:\Programme\tango_with_django_project
 
 git÷–Ω¯»Î£∫
 cd D:\\Programme\\tango_with_django_project
+
+python manage.py runserver
