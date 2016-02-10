@@ -22,6 +22,8 @@ def category(request, category_name_slug):
     except Category.DoesNotExist:
         #不做任何事， templates 显示 'no category'
         pass 
+    
+    return render(request, 'rango/category.html', context_dict)
         
         
         
