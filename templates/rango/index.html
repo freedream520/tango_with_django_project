@@ -5,19 +5,22 @@
     
     <head>
         <title>Rango</title>
-        <link rel="stylesheet" href="{% static "css/base.css" %}"></link>
-        <script src="{% static "js/jquery.js" %}"></script>
     </head>
     
     <body>
-        <h1>Rango says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong>
-        <a href='/rango/about'>About</a><br />
-        <img src="{% static "images/Rango.jpg" %}" alt="Picture of Rango" />
-        <!-- src 为什么要这样写？wait 第二行加载后我们能使用 static tag to combine
-        STATIC_URL with 'images/Rango.jpg'
-        渲染后相当于 "/static/images/Rango.jpg"
-        alt="some_text" 当图片未显示时出现的文字 -->
+        <h1>Rango says...hello world!</h1>        
+        
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                <li>category</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
+        
+        <a href="/rango/about">about</a>
     </body>
     
 </html>
