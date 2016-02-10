@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 STATIC_PATH = os.path.join(BASE_DIR, 'static')
@@ -18,7 +19,7 @@ STATIC_PATH = os.path.join(BASE_DIR, 'static')
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b7@s_5$^(c3nqxhged9k5g0=!p)2z6!^r63g0c-q0w-__&ts+='
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
