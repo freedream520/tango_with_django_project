@@ -4,6 +4,8 @@ from django.db import models
 #不同类型的 Field and validataors
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
+    views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
     #Like __str__ 当 print 时打印出的字符串
     def __unicode__(self):
         return self.name 
