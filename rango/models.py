@@ -12,11 +12,8 @@ class Category(models.Model):
     #slugify 将 url 的空格变成 '-'，下面是将 save() 覆盖
     #使每次保存时都会 slugify URL 
     def save(self, *args, **kwargs):
-        if not self.id:
-            # Newly created object, so set slug
-            self.s = slugify(self.q)
-
-        super(test, self).save(*args, **kwargs)
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
     
     #Like __str__ 当 print 时打印出的字符串
     def __unicode__(self):

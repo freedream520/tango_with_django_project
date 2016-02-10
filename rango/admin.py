@@ -6,6 +6,8 @@ class PageAdmin(admin.ModelAdmin):
     
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'views', 'likes')
+    #输入类别的名称后自动 pre-populate slug field 
+    prepopulated_fields = {'slug':('name',)}
     
 # Register models
 admin.site.register(Category, CategoryAdmin)
