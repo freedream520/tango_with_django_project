@@ -1,5 +1,5 @@
 from django import forms 
-#ÎªÕâÁ½¸ö Model ÖÆ¶¨±í¸ñ
+#ä¸ºè¿™ä¸¤ä¸ª Model åˆ¶å®šè¡¨æ ¼
 from rango.models import Page, Category 
 
 class CategoryForm(forms.ModelForm):
@@ -7,14 +7,14 @@ class CategoryForm(forms.ModelForm):
         help_text="Please enter the title of the page.")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-                                       #save ÖĞ»á×Ô¶¯¸³Öµ¸øÕâ¸öfield
+                                       #save ä¸­ä¼šè‡ªåŠ¨èµ‹å€¼ç»™è¿™ä¸ªfield
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     
-    #Ìá¹©¶îÍâĞÅÏ¢¸øÕâ¸ö form 
+    #æä¾›é¢å¤–ä¿¡æ¯ç»™è¿™ä¸ª form 
     class Meta:
-        #ÎÒÃÇÏë°ÑÕâ¸ö form Ìá¹©¸øÄÄ¸ö model 
+        #æˆ‘ä»¬æƒ³æŠŠè¿™ä¸ª form æä¾›ç»™å“ªä¸ª model 
         model = Category
-        #Ïë´Ó model ÖĞ°üº¬ÄÄ¸ö field µ½Õâ¸ö form ÖĞ£¬¿ÉÒÔÊÇ¶à¸ö
+        #æƒ³ä» model ä¸­åŒ…å«å“ªä¸ª field åˆ°è¿™ä¸ª form ä¸­ï¼Œå¯ä»¥æ˜¯å¤šä¸ª
         fields = ('name',)
         
 class PageForm(forms.ModelForm):
@@ -26,6 +26,6 @@ class PageForm(forms.ModelForm):
     
     class Meta:
         model = Page 
-        #fields ±íÊ¾°üº¬½øÀ´µÄ exclude ±íÊ¾²»ĞèÒª°üº¬½øÀ´µÄ£¬¿ÉÄÜ»áÔì³É´íÎó
+        #fields è¡¨ç¤ºåŒ…å«è¿›æ¥çš„ exclude è¡¨ç¤ºä¸éœ€è¦åŒ…å«è¿›æ¥çš„ï¼Œå¯èƒ½ä¼šé€ æˆé”™è¯¯
         #Category object 
         exclude = ('category')
