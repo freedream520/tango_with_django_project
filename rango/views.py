@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category, Page 
+from rango.forms import CategoryForm 
 
 def index(request):#request is HttpRequest object 
     #从 model 中取出 top 5，传递到 templates 中 
@@ -28,5 +29,27 @@ def category(request, category_name_slug):
     
     return render(request, 'rango/category.html', context_dict)
         
+def add_category(request):
+    """
+    功能：
+    显示表格
+    保存提交的数据到数据库
+    或者显示错误
+    """
+    # A HTTP POST?
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        
+        if form.is_valid():
+            form.save(commit=True)
+            #Call the index() view 
+            #显示主页
+            return index(request)
+        else:
+            print(form.errors)
+    else:
+        form = CategoryForm()
+    
+    return render(request, 'rango/add_category.html', {'form': form})
         
         
