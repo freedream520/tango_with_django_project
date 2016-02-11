@@ -104,7 +104,7 @@ def register(request):
             profile.save()            
             registered = True 
             
-            return index(request)
+            return HttpResponseRedirect('/rango/login/')
             
         #表格无效或其他错误
         else:
