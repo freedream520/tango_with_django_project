@@ -28,4 +28,4 @@ class PageForm(forms.ModelForm):
         model = Page 
         #fields 表示包含进来的 exclude 表示不需要包含进来的，可能会造成错误
         #Category object 
-        exclude = ('category')
+        exclude = ('category',)
