@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category, Page 
-from rango.forms import CategoryForm, PageForm
+from rango.forms import CategoryForm, PageForm, \
+    UserForm, UserProfileForm
 
 def index(request):#request is HttpRequest object 
     #从 model 中取出 top 5，传递到 templates 中 
@@ -77,5 +78,44 @@ def add_page(request, category_name_slug):
         
     return render(request, 'rango/add_page.html', context_dict)
     
+def register(request):
+    #告诉 template 是否注册成功，初始为 False 
+    registered = False 
+    
+    if request.method = 'POST':
+        user_form = UserForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            #通过 save() 将表单中的数据储存到变量中
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            
+            #还需要放入东西，所以 commit=False ，
+            #为什么 user 中不要？ wait
+            profile = profile_form.save(commit=False)
+            profile.user = user 
+            
+            #如果提供了图片，就将图片放入 UserProfile 模块
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+                
+            profile.save()            
+            registered = True 
+            
+        #表格无效或其他错误
+        else:
+            print(user_form.errors, profile_form.errors)
+    #不是 POST 请求，我们渲染表格给用户输入
+    else:
+        #UserForm 是 Model，加上括号是其的一个 object 
+        user_form = UserForm()
+        profile_form = UserProfileForm()
         
+    return render(request, 'rango/register.html', 
+        {'user_form': user_form, 'profile_form': profile_form, 
+            'registered': registered})
+        
+    
+    
         
