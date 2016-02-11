@@ -82,7 +82,7 @@ def register(request):
     #告诉 template 是否注册成功，初始为 False 
     registered = False 
     
-    if request.method = 'POST':
+    if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
         if user_form.is_valid() and profile_form.is_valid():
