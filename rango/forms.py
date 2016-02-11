@@ -1,6 +1,7 @@
 from django import forms 
 #为这两个 Model 制定表格
-from rango.models import Page, Category 
+from rango.models import Page, Category, UserProfile
+from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128, 
@@ -44,3 +45,16 @@ class PageForm(forms.ModelForm):
             cleaned_data['url'] = url 
         
         return cleaned_data
+        
+class UserForm(forms.ModelForm):
+    #使密码输入时不可见，model 中密码是可见的
+    password = forms.CharField(widget=form.PasswordInput())
+    
+    class Meta:
+        model = User 
+        fields = ('username', 'email', 'password')
+        
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile 
+        fields = ('website', 'picture')
