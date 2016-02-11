@@ -9,7 +9,7 @@ urlpatterns = patterns('',
         #子串匹配到的内容将可以用命名的name参数来提取
         url(r'^category/(?P<category_name_slug>[\w\-]+)/$', 
             views.category, name='category'),
-        url(r'^register/', views.register, name="register"),
+        url(r'^register/$', views.register, name="register"),
         )
         
         
