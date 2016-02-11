@@ -48,7 +48,7 @@ class PageForm(forms.ModelForm):
         
 class UserForm(forms.ModelForm):
     #使密码输入时不可见，model 中密码是可见的
-    password = forms.CharField(widget=form.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput())
     
     class Meta:
         model = User 
