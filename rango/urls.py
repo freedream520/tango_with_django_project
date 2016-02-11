@@ -10,6 +10,7 @@ urlpatterns = patterns('',
         url(r'^category/(?P<category_name_slug>[\w\-]+)/$', 
             views.category, name='category'),
         url(r'^register/$', views.register, name="register"),
+        url(r'^login/$', views.url_login, name="login"),
         )
         
         
