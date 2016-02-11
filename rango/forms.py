@@ -29,3 +29,18 @@ class PageForm(forms.ModelForm):
         #fields 表示包含进来的 exclude 表示不需要包含进来的，可能会造成错误
         #Category object 
         exclude = ('category',)
+    
+    #因为输入的URL格式可能不正确，我们通过覆盖 clean()
+    #函数来格式化 URL。在这个函数中加上检查的部分
+    #因为 clean() 函数在储存表单数据前运行
+    #扩展开来，form 表单中数据检查、处理也可以在这进行
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('url')
+        
+        #url 不为空并且不是以 'http://' 开头
+        if url and not url.startswith('http://'):
+            url = 'http://' + url 
+            cleaned_data['url'] = url 
+        
+        return cleaned_data
