@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>Rango</title>
+    </head>
+    
+    <body>
+        <h1>Login with Rango</h1>
+        
+        <form id="login_form" method="post" action="/rango/login/">
+            {% csrf_token %}
+            <!-- 使用 <input /> 实现表格 -->
+            Username: <input type="text" name="username" value="", size="50" />
+            <br />
+            Password: <input type="password" name="password" value="", size="50" />
+            <br />
+            
+            <input type="submit" value="submit" />
+        </form>
+    </body>
+    
+</html>
