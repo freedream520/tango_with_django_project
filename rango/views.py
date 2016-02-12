@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from rango.models import Category, Page 
 from rango.forms import CategoryForm, PageForm, \
     UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login 
+from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
 
 def index(request):#request is HttpRequest object 
@@ -143,5 +143,10 @@ def user_login(request):
 @login_required 
 def restricted(request):
     return HttpResponse("You are logged in.")
+    
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/rango/')
     
         
