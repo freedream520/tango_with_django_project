@@ -1,8 +1,9 @@
 {% extends 'rango/base.html' %}
-{% load staticfiles %}
+{% load static %}
 
 {% block body %}
         Here is the about page.<br/>
-    
+        <p>visits: {{ visits }}</p>
+        
         <img src="{% static "images/Rango.jpg"%}" alt="Picture of Rango" />
 {% endblock %}

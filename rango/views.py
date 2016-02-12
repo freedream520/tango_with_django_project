@@ -15,31 +15,47 @@ def index(request):#request is HttpRequest object
     page_list = Page.objects.order_by('-views')[:5]
     context_dict['pages'] = page_list
     
-    #每进行一次对 index 的请求，更新访问次数和最后访问时间
-    #从 cookies 中获取访问次数
-    visits = int(request.COOKIES.get('visits', 0))
-    #是否要重置
-    reset_last_visit_time = False 
+    visits = int(request.session.get('visits', '0'))
+    reset_last_visit_time = False
     
-    if 'last_visit' in request.COOKIES:
-        last_visit = request.COOKIES['last_visit']
-        #将这个值转化为 Python date/time object 
-        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")        
-        #如果从上次登录到现在已经超过一天
-        if (datetime.now() - last_visit_time).days > 0:
+    last_visit = request.session.get('last_visit')
+    if last_visit:
+        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+        
+        if (datetime.now() - last_visit_time).seconds > 0:
             visits = visits + 1 
             reset_last_visit_time = True 
-    else:        
-        reset_last_visit_time = True
-                         
-    context_dict['visits'] = visits   
-    #提前获得 Response object，然后可以添加 cookie 信息进去
-    response = render(request,'rango/index.html', context_dict)
-    if reset_last_visit_time:
-        response.set_cookie('last_visit', datetime.now())
-        response.set_cookie('visits', visits)        
+    else:
+        reset_last_visit_time = True 
     
-    return response 
+    if reset_last_visit_time:
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = visits
+    
+    context_dict['visits'] = visits
+    
+    return render(request, 'rango/index.html', context_dict)
+    
+def about(request):
+    reset_last_visit_time = False 
+    
+    visits = request.session.get('visits', '0')
+    last_visit = request.session.get('last_visit')
+    
+    if last_visit:
+        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+        
+        if (datetime.now() - last_visit_time).seconds > 0:
+            visits = visits + 1 
+            reset_last_visit_time = True 
+    else:
+        reset_last_visit_time = True 
+        
+    if reset_last_visit_time:
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = visits       
+    
+    return render(request, 'rango/about.html', {'visits': visits})
     
 def category(request, category_name_slug):
     context_dict = {}
