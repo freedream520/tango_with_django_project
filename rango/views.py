@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 def index(request):#request is HttpRequest object 
+    request.session.set_test_cookie()
     #从 model 中取出 top 5，传递到 templates 中 
     category_list = Category.objects.order_by('-likes')[:5] # '-' 降序
     context_dict = {'categories': category_list}
@@ -83,6 +84,9 @@ def add_page(request, category_name_slug):
     return render(request, 'rango/add_page.html', context_dict)
     
 def register(request):
+    if request.session.test_cookie_worked():
+        print(">>>> TEST COOKIE WORKED！")
+        request.session.delete_test_cookie()
     #告诉 template 是否注册成功，初始为 False 
     registered = False 
     
