@@ -4,6 +4,7 @@ from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, \
     UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login 
+from django.contrib.auth.decorators import login_required
 
 def index(request):#request is HttpRequest object 
     #从 model 中取出 top 5，传递到 templates 中 
@@ -139,6 +140,8 @@ def user_login(request):
     else:
         return render(request, 'rango/login.html', {})
         
-    
+@login_required 
+def restricted(request):
+    return HttpResponse("You are logged in.")
     
         
