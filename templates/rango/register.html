@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html>
-    
-    <head>
-        <title>Rango</title>
-    </head>
-    
-    <body>
-        <h1>Register with Rango</h1>
+{% extends 'rango/base.html' %}
+{% block body %}
+    <h1>Register with Rango</h1>
         
-        {% if registered %}
-        <strong>Thank you for registering!</strong>
-        <a href="/rango">Return to the home page.</a><br />
-        {% else %}
-        <strong>Register here!</strong><br />
-        
-        <form id="user_form" method="post" action="/rango/register/"
-                enctype="multiple/form-data">
-        
-            {% csrf_token %}
-            
-            <!-- form_name.as_p 将 form 中的每项包裹在 <p></p> 中，每项占据一行-->
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-            <!-- 提交按钮  -->
-            <input type="submit" name="submit" value="Register" />
-        </form>
-        {% endif %}
-    </body>
+    {% if registered %}
+    <strong>Thank you for registering!</strong>
+    <a href="{% url 'index' %}">Return to the home page.</a><br />
+    {% else %}
+    <strong>Register here!</strong><br />
     
-</html>
+    <form id="user_form" method="post" action="/rango/register/"
+            enctype="multiple/form-data">
+    
+        {% csrf_token %}
+        
+        <!-- form_name.as_p 将 form 中的每项包裹在 <p></p> 中，每项占据一行-->
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <!-- 提交按钮  -->
+        <input type="submit" name="submit" value="Register" />
+    </form>
+    {% endif %}
+{% endblock %}
