@@ -56,8 +56,6 @@ ROOT_URLCONF = 'tango_with_django_project.urls'
 
 WSGI_APPLICATION = 'tango_with_django_project.wsgi.application'
 
-#未登录用户转向的 URL 
-LOGIN_URL = '/rango/login/'
 
 TEMPLATE_DIRS = [
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -110,5 +108,5 @@ REGISTRATION_OPEN = True        #If True, 用户允许注册
 ACCOUNT_ACTIVATION_DAYS = 7     #Activation window 激活窗口时长？ wait
 REGISTRATION_AUTO_LOGIN = True  #注册后自动登录该用户
 LOGIN_REDIRECT_URL = '/rango/'   #登陆后跳转到的 URL 
-LOGIN_URL = '/account/login/'   #登录页面 URL 
+LOGIN_URL = '/accounts/login/'   #登录页面 URL 
 
