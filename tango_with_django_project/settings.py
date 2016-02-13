@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,3 +104,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
+
+#'registration' 应用的设置
+REGISTRATION_OPEN = True        #If True, 用户允许注册
+ACCOUNT_ACTIVATION_DAYS = 7     #Activation window 激活窗口时长？ wait
+REGISTRATION_AUTO_LOGIN = True  #注册后自动登录该用户
+LOGIN_REDIRECT_URL = '/rango/'   #登陆后跳转到的 URL 
+LOGIN_URL = '/account/login/'   #登录页面 URL 
+
