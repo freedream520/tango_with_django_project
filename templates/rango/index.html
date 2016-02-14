@@ -1,30 +1,45 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block body %}
-    <p>visits: {{ visits }}</p>
+
+{% block title %}Index{% endblock %}
+
+{% block body %}    
     {% if user.is_authenticated %}        
         <h1 class="page-header">Hello {{ user.username }}!</h1>
     {% else %}
         <h1 class="page-header">Hello world!</h1>        
     {% endif %}
         
-    {% if categories %}
-        <ul>
-            {% for category in categories %}
-            <li><a href="{% url 'category' category.slug %}">{{ category.name }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <strong>There are no categories present.</strong>
-    {% endif %}
-    <br/>        
+    <div class="row placeholder">
+        <div class="col-xs-12 col-sm-6 placeholder">
+            <h4>Categories</h4>
+            
+            {% if categories %}
+            <ul>
+                {% for category in categories %}
+                <li><a href="{% url 'category' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>There are no categories present.</strong>
+            {% endif %}
+            <br/>                                
+        </div>
+        <div class="col-xs-12 col-sm-6 placeholder">
+            <h4>Pages</h4>
+            
+            {% if pages %}
+                <ul>
+                    {% for page in pages %}
+                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>There are no pages in {{ category.name }}.</strong>
+            {% endif %}
+        </div>
+    </div>
     
-    {% if pages %}
-        <ul>
-            {% for page in pages %}
-            <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <p>visits: {{ visits }}</p>        
 {% endblock %}
         
