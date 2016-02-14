@@ -3,9 +3,9 @@
 {% block body %}
     <p>visits: {{ visits }}</p>
     {% if user.is_authenticated %}        
-        <h1>Hello {{ user.username }}!</h1>
+        <h1 class="page-header">Hello {{ user.username }}!</h1>
     {% else %}
-    <h1>Hello world!</h1>        
+        <h1 class="page-header">Hello world!</h1>        
     {% endif %}
         
     {% if categories %}

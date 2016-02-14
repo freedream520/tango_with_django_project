@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+    <h1 class="page-header">Add page for {{ category.name }}</h1>
     <form id="page_form" method="post", action="rango/add_page">
             
         {% csrf_token %}

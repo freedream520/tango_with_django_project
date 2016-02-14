@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>Login</h1>
+<h1 class="page-header">Login</h1>
     <form method="post", action=".">
         {% csrf_token %}
         {{ form.as_p }}
