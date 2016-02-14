@@ -16,11 +16,16 @@
             
             {% for field in form.visible_fields %}
                 {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
+                <div class="row placeholder">
+                    <div class="col-xs-12 col-sm-5 placeholder">
+                        <h3 class="form-signin-heading">{{ field.help_text }}: </h3>
+                        <input class="form-control"  id="id_username" 
+                        maxlength="128" name="name" type="text" required autofocus/>                    
+                    </div>
+                </div>   
             {% endfor %}
             
-            <input type="submit" name="submit" value="Create Page" />
+            <button class="btn btn-primary" type="submit" name="submit">Create Page</button>
         </form>
     {% else %}
         <p>This is category does not exist.</p>
