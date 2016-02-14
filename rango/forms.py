@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128, 
-        help_text="Please enter the title of the page.")
+        help_text="Please enter the title of the page")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
                                        #save 中会自动赋值给这个field
