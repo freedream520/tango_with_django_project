@@ -8,7 +8,11 @@
             <h1>About</h1>
         </div>
         <div>
-            <p></strong>.</p>
-            <img width="90" height="100" src="{% static "images/Rango.jpg"%}" alt="Picture of Rango" />
+            <p>
+            This is <strong>Rango's about page</strong><br />
+            <a href="{% url 'index' %}">Click to return to the index page.</a><br />
+            Here is a picture of Rango!
+            </p>
+            <img src="{% static "images/Rango.jpg"%}" alt="Picture of Rango" />
         </div>
 {% endblock %}
