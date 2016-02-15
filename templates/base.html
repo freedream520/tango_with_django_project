@@ -43,7 +43,9 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="{% url 'index' %}">Rango</a>
-          <a href="{% url 'about' %}">About</a>
+          <ul class="nav navbar-nav navbar-left">
+            <li><a href="{% url 'about' %}">About</a></li>
+          </ul>          
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">

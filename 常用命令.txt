@@ -7,3 +7,5 @@ gitÖĞ½øÈë£º
 cd D:\\Programme\\tango_with_django_project
 
 python manage.py runserver
+
+python manage.py runserver 117.42.70.146:5555
