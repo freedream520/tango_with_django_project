@@ -192,17 +192,17 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/rango/')
     
-def track_url():
+def track_url(request):
     #从 GET 中获取 page_id，然后查询到对应 Page objects 
     #浏览次数加一，保存，转向对应网址
     #不为 'GET' OR object 不存在转向主页
     if request.method == 'GET':
         if 'page_id' in request.GET:
             page_id = request.GET['page_id']
-            page = Page.objectc.filter(id=page_id)
-            page.views = page.views + 1 
+            page = Page.objects.filter(id=page_id)[0]
+            page.views = page.views + 1
             page.save()
-            return HttpResponseRedirect(page.url)
+            return HttpResponseRedirect(page.url)            
         else:
             return HttpResponseRedirect('/rango')
     else:
