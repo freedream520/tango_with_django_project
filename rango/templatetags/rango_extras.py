@@ -5,6 +5,6 @@ register = template.Library()
 
 @register.inclusion_tag('rango/cats.html')
 def get_category_list(cat=None):
-    # key ±íÊ¾´«µİµ½ cats.html µÄ±äÁ¿Ãû 
-    # Í¨¹ıÓ¦ÓÃÄ£°åÖĞµÄ {% get_category_list category %} ´«µİ
+    # key è¡¨ç¤ºä¼ é€’åˆ° cats.html çš„å˜é‡å 
+    # é€šè¿‡åº”ç”¨æ¨¡æ¿ä¸­çš„ {% get_category_list category %} ä¼ é€’
     return {"cats": Category.objects.all(), 'act_cat': cat}
