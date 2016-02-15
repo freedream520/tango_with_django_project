@@ -13,7 +13,7 @@ urlpatterns = patterns('',
         url(r'^login/$', views.user_login, name="login"),
         url(r'^restricted/', views.restricted, name="restricted"),
         url(r'^logout/$', views.user_logout, name='logout'),
-        url(r'^goto/$', views.track_url, name='goto'),
+        url(r'^goto/?page_id=(?P<page_id>[\d]+)/$', views.track_url, name='goto'),
         )
         
         
