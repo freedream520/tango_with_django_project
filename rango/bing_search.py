@@ -2,7 +2,7 @@ import json
 import urllib, urllib.parse, urllib.request
 import os 
 
-BING_API_KEY = os.environ.get('BING_API_KEY')
+BING_API_KEY = 'bYwC3Jb78mM/PPkFM6HXLxUnvh5nG3f2ZEtJ9yQ+BU0'
 
 def run_query(search_terms):
     root_url = "https://api.datamarket.azure.com/Bing/Search/"
@@ -38,8 +38,9 @@ def run_query(search_terms):
         opener = urllib.request.build_opener(handler)
         urllib.request.install_opener(opener)
         
-        #连接到 Bing 服务器并读取响应
-        response = urllib.request.urlopen(search_url).read()
+        #连接到 Bing 服务器并读取响应                  #需要 decode 否则会发生 json
+        #the JSON object must be str, not 'bytes'
+        response = urllib.request.urlopen(search_url).read().decode('utf8')
         #转化为 Python dict object 
         json_response = json.loads(response)
         

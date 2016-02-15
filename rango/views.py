@@ -6,6 +6,7 @@ from rango.forms import CategoryForm, PageForm, \
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from .bing_search import run_query
 
 def index(request):#request is HttpRequest object 
     #从 model 中取出 top 5，传递到 templates 中 
@@ -59,7 +60,17 @@ def about(request):
     
 def category(request, category_name_slug):
     context_dict = {}
-    
+    context_dict['result_list'] = None 
+    context_dict['query'] = None
+    if request.method == 'POST':
+        query = request.POST['query'].strip()
+        
+        if query:
+            #运行搜索函数获取结果
+            result_list = run_query(str(query))
+            context_dict['result_list'] = result_list
+            context_dict['query'] = query                        
+            
     try:
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category'] = category
@@ -70,6 +81,10 @@ def category(request, category_name_slug):
     except Category.DoesNotExist:
         #不做任何事， templates 显示 'no category'
         pass 
+    
+    #如果没有，默认搜索关键字为当前 category_name 
+    if not context_dict['query']:
+        context_dict['query'] = category.name 
     
     return render(request, 'rango/category.html', context_dict)
         
