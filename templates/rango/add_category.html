@@ -1,28 +1,12 @@
 {% extends 'base.html' %}
-{% block body %}
-    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
-        
-    <form id="category_form" method="post" action="/rango/add_category">
-        <h1 class="page-header form-signin-heading">Add a Category</h1>
-        <!-- Cross Site Request Forgery -->
-       
-        {% csrf_token %}
-        
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-                
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            <div class="row placeholder">
-                <div class="col-xs-12 col-sm-5 placeholder">
-                    <h3 class="form-signin-heading">{{ field.help_text }}: </h3>
-                    <input class="form-control" placeholder="Category name" id="id_username" 
-                    maxlength="128" name="name" type="text" required autofocus/>                    
-                </div>
-            </div>            
-        {% endfor %}                                                       
-        <button class="btn btn-primary" type="submit" name="submit">Create Category</button>    
-    </form>
+{% load bootstrap_toolkit %}
+{% block title %}Add Category{% endblock %}
+{% block body%}
+<form id="category_form" method="post" action="{% url 'add_category' %}">
+    <h2 class="form-signin-heading">Add a Category</a></h2>
+    {% csrf_token %}
+    {{ form|as_bootstrap }}
+    <br/>
+    <button class="btn btn-primary" type="submit" name="submit">Create Category</button>
+</form>
 {% endblock %}
-        
