@@ -10,10 +10,14 @@ class Category(models.Model):
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     
-    #slugify 将 url 的空格变成 '-'，下面是将 save() 覆盖
-    #使每次保存时都会 slugify URL 
+    #覆盖 save() 函数，加入自定义
     def save(self, *args, **kwargs):
+        #slugify 将 url 的空格变成 '-'，下面是将 save() 覆盖
         self.slug = slugify(self.name)
+        #检查 views 是否 >= 0 
+        if self.views < 0:
+            self.views = 0 
+        #保存
         super(Category, self).save(*args, **kwargs)
     
     #Like __str__ 当 print 时打印出的字符串
