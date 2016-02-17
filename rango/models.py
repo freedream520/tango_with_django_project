@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User 
+import datetime 
 
 #从 django.db.models.Model 继承
 #不同类型的 Field and validataors
@@ -29,6 +30,21 @@ class Page(models.Model):
     title = models.CharField(max_length=128)
     url = models.URLField()
     views = models.IntegerField(default=0)
+    #set the field to now 当这个 field 被创建时
+    first_visit = models.DateTimeField(auto_now_add=True)
+    #set the field to now every time the object is saved
+    last_visit = models.DateTimeField(auto_add=True)
+    
+    def save(self, *args, **kwargs):
+        if self.views < 0:
+            self.views = 0
+        
+        if first_visit > datetime.datetime.now():
+            first_visit = datetime.datetime.now()
+        if last_visit > datetime.datetime.now():
+            last_visit = datetime.datetime.now()
+            
+        super(Category, self).save(*args, **kwargs)
     
     def __unicode__(self):
         return self.title 
