@@ -1,7 +1,7 @@
 from django.test import TestCase
 from rango.models import Category, Page 
 from django.core.urlresolvers import reverse 
-from datetime import datetime 
+import datetime 
 
 def add_category(name, views=1, likes=1):
     category = Category.objects.get_or_create(name=name)[0]
@@ -10,14 +10,14 @@ def add_category(name, views=1, likes=1):
     category.save()
     return category 
     
-def add_page(category, title, url="http:www.baidu.com", views=1, first_visit, last_visit):
-    page = Page.objects.get_or_create(title=title)[0]
-    page.category = category 
-    page.title = title 
-    page.url = url 
-    page.views = views 
-    page.first_visit = first_visit
-    page.last_visit = last_visit 
+def add_page(category, title, first_visit, last_visit, url="http//:www.baidu.com", views=1):
+    page = Page.objects.get_or_create(category=category, title=title, first_visit=first_visit, last_visit=last_visit, url=url, views=views)[0]
+    # page.category = category 
+    # page.title = title 
+    # page.url = url 
+    # page.views = views 
+    # page.first_visit = first_visit
+    # page.last_visit = last_visit 
     
     return page 
 
@@ -29,6 +29,23 @@ class CategoryMethodTests(TestCase):
         cat = Category(name='test', views=-1, likes=0)
         cat.save()
         self.assertEqual((cat.views >= 0), True)
+
+class PageMethodTests(TestCase):
+    def test_visit_not_in_future(self):
+        """
+        first_visit and last_visit should <= datetime.datetime..now()
+        #为了测试间独立，每个测试完后不要清空数据？ wait 
+        """
+        #初始化
+        category = add_category('testdfs')
+        now = datetime.datetime.now(datetime.timezone.utc)
+        first_visit = now - datetime.timedelta(hours=2)
+        #设置为未来时间
+        last_visit = now + datetime.timedelta(hours=2)
+        page1 = add_page(category=category, title="test", first_visit=first_visit, last_visit=last_visit)
+        page1.save()
+                        
+        self.assertFalse(page1.last_visit > now)
         
 class IndexViewTests(TestCase):
     def test_index_view_with_no_categories(self):

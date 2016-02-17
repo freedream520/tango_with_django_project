@@ -33,18 +33,26 @@ class Page(models.Model):
     #set the field to now 当这个 field 被创建时
     first_visit = models.DateTimeField(auto_now_add=True)
     #set the field to now every time the object is saved
-    last_visit = models.DateTimeField(auto_add=True)
+    last_visit = models.DateTimeField(auto_now=True)
     
     def save(self, *args, **kwargs):
+        now = datetime.datetime.now(datetime.timezone.utc)
+        
         if self.views < 0:
             self.views = 0
         
-        if first_visit > datetime.datetime.now():
-            first_visit = datetime.datetime.now()
-        if last_visit > datetime.datetime.now():
-            last_visit = datetime.datetime.now()
+        if self.first_visit:
+            if self.first_visit > now:
+                self.first_visit = now
+        else:
+            self.first_visit = now 
+        if self.last_visit:
+            if self.last_visit > now:
+                self.last_visit = now
+        else:
+            self.last_visit = now 
             
-        super(Category, self).save(*args, **kwargs)
+        super(Page, self).save(*args, **kwargs)
     
     def __unicode__(self):
         return self.title 
