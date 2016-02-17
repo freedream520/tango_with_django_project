@@ -46,6 +46,21 @@ class PageMethodTests(TestCase):
         page1.save()
                         
         self.assertFalse(page1.last_visit > now)
+    
+    def test_last_visit_equal_or_after_first_visit(self):
+        """
+        last_visit 时间应该等于或者大于 first_visit
+        """
+        #初始化
+        category = add_category('test_last_visit_equal_or_after_first_visit')
+        now = datetime.datetime.now(datetime.timezone.utc)
+        #设置 last_visit 小于 first_visit 应该返回 last_visit 大于或等于 first_visit
+        first_visit = now        
+        last_visit = now - datetime.timedelta(hours=2)
+        page = add_page(category=category, title="test", first_visit=first_visit, last_visit=last_visit)
+        page.save()
+                        
+        self.assertEqual((page.last_visit > page.first_visit or page.last_visit == page.first_visit), True)
         
 class IndexViewTests(TestCase):
     def test_index_view_with_no_categories(self):
