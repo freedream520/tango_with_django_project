@@ -1,6 +1,7 @@
 from django.test import TestCase
-from rango.models import Category
+from rango.models import Category, Page 
 from django.core.urlresolvers import reverse 
+from datetime import datetime 
 
 def add_category(name, views=1, likes=1):
     category = Category.objects.get_or_create(name=name)[0]
@@ -8,6 +9,17 @@ def add_category(name, views=1, likes=1):
     category.likes = likes
     category.save()
     return category 
+    
+def add_page(category, title, url="http:www.baidu.com", views=1, first_visit, last_visit):
+    page = Page.objects.get_or_create(title=title)[0]
+    page.category = category 
+    page.title = title 
+    page.url = url 
+    page.views = views 
+    page.first_visit = first_visit
+    page.last_visit = last_visit 
+    
+    return page 
 
 class CategoryMethodTests(TestCase):
     def test_ensure_views_are_positive(self):
