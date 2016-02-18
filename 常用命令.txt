@@ -11,3 +11,7 @@ python manage.py runserver
 python manage.py test rango
 
 python manage.py runserver 117.42.70.146:5555
+
+Linux…œ£∫
+º§ªÓ£∫
+source py3_venv/bin/activate
