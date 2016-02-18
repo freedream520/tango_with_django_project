@@ -1,7 +1,9 @@
-from django.test import TestCase
+from django.test import TestCase, LiveServerTestCase
 from rango.models import Category, Page 
 from django.core.urlresolvers import reverse 
 import datetime 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys 
 
 def add_category(name, views=1, likes=1):
     category = Category.objects.get_or_create(name=name)[0]
@@ -91,3 +93,40 @@ class IndexViewTests(TestCase):
         
         num_categories = len(response.context['categories'])
         self.assertEqual(num_categories, 4)
+        
+class AccountTestCase(LiveServerTestCase):
+    def setUp(self):
+        self.selenium = webdriver.Firefox()
+        super(AccountTestCase, self).setUp()
+        
+    def tearDown(self):
+        self.selenium.quit()
+        super(AccountTestCase, self).tearDown()
+
+    """
+    测试注册功能    
+    """
+    def test_register(self):
+        selenium = self.selenium 
+        #打开注册链接 
+        selenium.get("http://127.0.0.1:8000/accounts/register/")
+        
+        #通过 name="xxx" 找到表单元素
+        username = selenium.find_element_by_name('username')
+        email = selenium.find_element_by_name('email')
+        password1 = selenium.find_element_by_name('password1')
+        password2 = selenium.find_element_by_name('password2')
+        register = selenium.find_element_by_name('register')
+        
+        #填充数据到表单
+        username.send_keys('test')
+        email.send_keys('test@qq.com')
+        password1.send_keys('test')
+        password2.send_keys('test')
+        
+        #提交数据到表单
+        register.send_keys('Keys.RETURN')
+        
+        #检查结果
+        self.assertContains(selenium.page_source, "Hello test!")
+        
