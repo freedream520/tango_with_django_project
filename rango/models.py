@@ -41,17 +41,20 @@ class Page(models.Model):
         if self.views < 0:
             self.views = 0
         
+        #访问时间不应该设置在未来
         if self.first_visit:
             if self.first_visit > now:
                 self.first_visit = now
         else:
             self.first_visit = now 
+        
         if self.last_visit:
             if self.last_visit > now:
                 self.last_visit = now
         else:
             self.last_visit = now 
             
+        #最后访问时间应该大于首次访问时间
         if self.last_visit < self.first_visit:
             self.last_visit = self.first_visit
             
